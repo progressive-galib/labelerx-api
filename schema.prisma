@@ -1,0 +1,21 @@
+model Photo {
+  id           Int      @id @default(autoincrement())
+  path         String
+  filename     String
+  isAnnotated  Boolean
+  width        Int?
+  height       Int?
+  classes      Classes[] // Many-to-many relationship
+}
+
+model Classes {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  count        Int      @default(0)
+  photos       Photo[]  // Many-to-many relationship
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
